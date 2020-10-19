@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.3.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
 
 group = 'com.tourguide'
@@ -25,7 +26,17 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+	//testCompile("junit:junit")
+	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.2.5.RELEASE'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 	compile(name:'TripPricer', ext:'jar')
+	// https://mvnrepository.com/artifact/org.jacoco/org.jacoco.agent //EDE ajout
+	testCompile group: 'org.jacoco', name: 'org.jacoco.agent', version: '0.8.4'
+	// https://mvnrepository.com/artifact/org.jacoco/org.jacoco.ant//EDE ajout
+	testCompile group: 'org.jacoco', name: 'org.jacoco.ant', version: '0.8.4'
+	// https://mvnrepository.com/artifact/org.modelmapper/modelmapper//EDE ajout
+	compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
 }
 
 dependencyManagement {
@@ -34,6 +45,34 @@ dependencyManagement {
 	}
 }
 
+jacoco {
+	toolVersion = "0.8.4"
+	reportsDir = file("${buildDir}/customJacocoReportDir")
+}
+
 test {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+	reports {
+
+		xml.enabled true
+		csv.enabled false
+		html.destination file("${buildDir}/jacocoHtml")
+	}
+}
+check.dependsOn jacocoTestCoverageVerification
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				counter = 'LINE'
+				value = 'COVEREDRATIO'
+				minimum = 0.5
+			}
+		}
+	}
 }
