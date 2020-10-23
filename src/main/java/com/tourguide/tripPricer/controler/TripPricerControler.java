@@ -22,6 +22,17 @@ public class TripPricerControler {
     @Autowired
     private TripPricerService tripPricerService;
 
+    /**
+     * give a price for an attraction
+     * @param apiKey api key
+     * @param attractionId attraction uuid
+     * @param adults number of adults
+     * @param children number of children
+     * @param nightsStay number of night in attraction
+     * @param rewardsPoints reward point for the user
+     * @return list of providers
+     * @throws UUIDException id uuid is incorrect
+     */
     @GetMapping(value = "getPrice")
     @ResponseStatus(HttpStatus.OK)
     public List<Provider> getPrice (@RequestParam String apiKey,@RequestParam UUID attractionId,@RequestParam int adults,@RequestParam int children, @RequestParam int nightsStay, @RequestParam int rewardsPoints) throws UUIDException {
@@ -33,6 +44,13 @@ public class TripPricerControler {
             throw new UUIDException("UUID input error : attractionId = " + attractionId + "  message :" + e.getMessage());
         }*/
     }
+
+    /**
+     * give the name of the provider
+     * @param apiKey api key
+     * @param adults provider id
+     * @return name of the provider
+     */
     @GetMapping(value = "getProviderName")
     @ResponseStatus(HttpStatus.OK)
     public String getProviderName (@RequestParam String apiKey,@RequestParam int adults)  {
