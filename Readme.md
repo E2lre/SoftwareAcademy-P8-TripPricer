@@ -9,7 +9,7 @@ This app use SPRINT BOOT, FeignClient.
 
 ## Prerequisites
 
-- Java 1.8
+- Java 1.8  or later
 - Spring Boot 2.2.6
 - Gradle 2.2.5
 
