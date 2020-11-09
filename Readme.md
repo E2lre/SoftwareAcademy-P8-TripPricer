@@ -12,19 +12,21 @@ This app use SPRINT BOOT, FeignClient.
 - Java 1.8  or later
 - Spring Boot 2.2.6
 - Gradle 2.2.5
+- Docker (Optional)
 
 # Installation
 
-No Database creation needed:
-
+## No Database creation needed
+## Without Docker
 To start the application whitout docker start sub-micro-service with or without docker in build libs directories: 
 - TripPricer : java -jar tripPricer-0.0.1-SNAPSHOT.jar
 
+## With Docker
 Docker construction in project directory : 
-docker build --build-arg JAR_FILE=build/libs/*.jar -t springio/gs-spring-boot-docker-trippricer .
+- docker build --build-arg JAR_FILE=build/libs/*.jar -t springio/gs-spring-boot-docker-trippricer .
 
 Docker execution : 
-docker run -p 8084:8084 --name TripPricer springio/gs-spring-boot-docker-trippricer
+- docker run -p 8084:8084 --name TripPricer springio/gs-spring-boot-docker-trippricer
 
 # Architecture Diagram
 ![ScreenShot](Architecture.png)
@@ -37,4 +39,4 @@ http://localhost:8084/getPrice?apiKey=abc&attractionId=123e4567-e89b-12d3-a456-4
 
 ## get Provider Name
 Example : 
-http://localhost:8083/getProviderName?apiKey=abc&adults=2
+http://localhost:8084/getProviderName?apiKey=abc&adults=2
