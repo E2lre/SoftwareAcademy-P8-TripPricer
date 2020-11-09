@@ -17,9 +17,14 @@ This app use SPRINT BOOT, FeignClient.
 
 No Database creation needed:
 
-To start the application start sub-micro-service with or without docker in build libs directories: 
+To start the application whitout docker start sub-micro-service with or without docker in build libs directories: 
 - TripPricer : java -jar tripPricer-0.0.1-SNAPSHOT.jar
 
+Docker construction in project directory : 
+docker build --build-arg JAR_FILE=build/libs/*.jar -t springio/gs-spring-boot-docker-trippricer .
+
+Docker execution : 
+docker run -p 8084:8084 --name TripPricer springio/gs-spring-boot-docker-trippricer
 
 # Architecture Diagram
 ![ScreenShot](Architecture.png)
